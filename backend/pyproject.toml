@@ -1,0 +1,20 @@
+[project]
+name = "harmonic-experience-backend"
+version = "0.1.0"
+description = "Backend for Harmonic Experience Tool - Audio processing server"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi>=0.115.6",
+    "uvicorn[standard]>=0.34.0",
+    "numpy>=2.3.5",
+    "scipy>=1.16.3",
+    "python-multipart>=0.0.20",
+    "soundfile>=0.12.1",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["."]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
