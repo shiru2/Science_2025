@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react'
 import axios from 'axios'
+import Waveform from './Waveform'
 
 interface RecorderProps {
   onAudioLoaded: (data: any) => void
@@ -8,14 +9,16 @@ interface RecorderProps {
 const Recorder = ({ onAudioLoaded }: RecorderProps) => {
   const [isRecording, setIsRecording] = useState(false)
   const [isUploading, setIsUploading] = useState(false)
+  const [audioStream, setAudioStream] = useState<MediaStream | null>(null)
   const mediaRecorderRef = useRef<MediaRecorder | null>(null)
   const chunksRef = useRef<Blob[]>([])
-  const fileInputRef = useRef<HTMLInputElement>(null)
 
   // 録音開始
   const startRecording = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
+      setAudioStream(stream)
+
       const mediaRecorder = new MediaRecorder(stream)
       mediaRecorderRef.current = mediaRecorder
       chunksRef.current = []
@@ -32,6 +35,7 @@ const Recorder = ({ onAudioLoaded }: RecorderProps) => {
         const audioBlob = new Blob(chunksRef.current, { type: mimeType })
         await uploadAudio(audioBlob)
         stream.getTracks().forEach((track) => track.stop())
+        setAudioStream(null)
       }
 
       mediaRecorder.start()
@@ -74,91 +78,43 @@ const Recorder = ({ onAudioLoaded }: RecorderProps) => {
     }
   }
 
-  // ファイルアップロード
-  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-    if (!file) return
-
-    await uploadAudio(file)
-  }
-
-  // テスト音声を読み込み
-  const loadTestAudio = async () => {
-    setIsUploading(true)
-    try {
-      const response = await axios.get('/api/test-audio')
-
-      if (response.data.success) {
-        onAudioLoaded(response.data.data)
-      }
-    } catch (error) {
-      console.error('Error loading test audio:', error)
-      alert('テスト音声の読み込み中にエラーが発生しました')
-    } finally {
-      setIsUploading(false)
-    }
-  }
-
   return (
     <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-        {/* 録音ボタン */}
+      {/* 波形表示 */}
+      <Waveform audioStream={audioStream} isRecording={isRecording} />
+
+      {/* 録音ボタン */}
+      <div className="flex justify-center">
         {!isRecording ? (
           <button
             onClick={startRecording}
             disabled={isUploading}
-            className="bg-red-500 hover:bg-red-600 disabled:bg-gray-500 px-8 py-4 rounded-lg text-lg font-bold transition-colors flex items-center gap-3"
+            className="bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 disabled:from-gray-400 disabled:to-gray-500 px-12 py-6 rounded-2xl text-2xl font-bold text-white transition-all transform hover:scale-105 disabled:scale-100 shadow-xl flex items-center gap-4"
           >
-            <span className="text-2xl">🎤</span>
+            <span className="text-3xl">🎤</span>
             録音開始
           </button>
         ) : (
           <button
             onClick={stopRecording}
-            className="bg-gray-700 hover:bg-gray-800 px-8 py-4 rounded-lg text-lg font-bold transition-colors flex items-center gap-3 animate-pulse"
+            className="bg-gray-700 hover:bg-gray-800 px-12 py-6 rounded-2xl text-2xl font-bold text-white transition-all flex items-center gap-4 animate-pulse shadow-xl"
           >
-            <span className="text-2xl">⏹️</span>
+            <span className="text-3xl">⏹️</span>
             録音停止
           </button>
         )}
-
-        {/* ファイル選択ボタン */}
-        <button
-          onClick={() => fileInputRef.current?.click()}
-          disabled={isUploading || isRecording}
-          className="bg-blue-500 hover:bg-blue-600 disabled:bg-gray-500 px-8 py-4 rounded-lg text-lg font-bold transition-colors flex items-center gap-3"
-        >
-          <span className="text-2xl">📁</span>
-          ファイル選択
-        </button>
-        <input
-          ref={fileInputRef}
-          type="file"
-          accept="audio/*"
-          onChange={handleFileUpload}
-          className="hidden"
-        />
-
-        {/* テスト音声ボタン */}
-        <button
-          onClick={loadTestAudio}
-          disabled={isUploading || isRecording}
-          className="bg-green-500 hover:bg-green-600 disabled:bg-gray-500 px-8 py-4 rounded-lg text-lg font-bold transition-colors flex items-center gap-3"
-        >
-          <span className="text-2xl">🧪</span>
-          テスト音声
-        </button>
       </div>
 
       {isUploading && (
         <div className="text-center">
-          <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
-          <p className="mt-2 text-gray-300">処理中...</p>
+          <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600"></div>
+          <p className="mt-2 text-gray-600">処理中...</p>
         </div>
       )}
 
-      <div className="text-sm text-gray-400 text-center">
-        <p>💡 録音またはファイルを選択して、声を分析してみよう！</p>
+      <div className="text-sm text-gray-600 text-center bg-blue-50 border border-blue-300 rounded-lg p-4">
+        <p className="font-bold mb-1">💡 ヒント</p>
+        <p>「あー」と3秒ほど声を出してみましょう！</p>
       </div>
     </div>
   )

@@ -106,14 +106,15 @@ class AudioProcessor:
         return sample_rate, audio_data
 
     def compute_spectrogram(
-        self, audio_data: np.ndarray, nperseg: int = 2048
+        self, audio_data: np.ndarray, nperseg: int = 4096, max_freq_display: float = 4000.0
     ) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
         """
         スペクトログラムを計算
 
         Args:
             audio_data: 音声データ
-            nperseg: STFTのウィンドウサイズ
+            nperseg: STFTのウィンドウサイズ（デフォルト4096で高解像度・時間分解能とのバランス良好）
+            max_freq_display: 表示する最大周波数（Hz）デフォルト4000Hzで人の声の成分に集中
 
         Returns:
             (frequencies, times, spectrogram): 周波数軸、時間軸、スペクトログラム
@@ -125,14 +126,19 @@ class AudioProcessor:
         # パワースペクトルに変換（デシベル）
         spectrogram = 20 * np.log10(np.abs(stft_matrix) + 1e-10)
 
-        return frequencies, times, spectrogram
+        # 周波数範囲を制限（人の声の成分に集中）
+        freq_mask = frequencies <= max_freq_display
+        frequencies_filtered = frequencies[freq_mask]
+        spectrogram_filtered = spectrogram[freq_mask, :]
+
+        return frequencies_filtered, times, spectrogram_filtered
 
     def apply_frequency_filter(
         self,
         audio_data: np.ndarray,
         low_cut: Optional[float] = None,
         high_cut: Optional[float] = None,
-        nperseg: int = 2048,
+        nperseg: int = 4096,
     ) -> np.ndarray:
         """
         周波数フィルターを適用
@@ -141,7 +147,7 @@ class AudioProcessor:
             audio_data: 音声データ
             low_cut: ローカット周波数 (Hz) - これより低い周波数をカット
             high_cut: ハイカット周波数 (Hz) - これより高い周波数をカット
-            nperseg: STFTのウィンドウサイズ
+            nperseg: STFTのウィンドウサイズ（デフォルト4096で高解像度）
 
         Returns:
             filtered_audio: フィルタリング後の音声データ

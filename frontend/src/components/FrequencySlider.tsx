@@ -49,7 +49,7 @@ const FrequencySlider = ({
             リセット
           </button>
         </div>
-        <p className="text-sm text-gray-400">
+        <p className="text-base text-gray-700">
           ✂️ スライダーを右に動かすと、低い音（低周波数）がカットされます
         </p>
       </div>
@@ -82,7 +82,7 @@ const FrequencySlider = ({
             リセット
           </button>
         </div>
-        <p className="text-sm text-gray-400">
+        <p className="text-base text-gray-700">
           ✂️ スライダーを左に動かすと、高い音（高周波数）がカットされます
         </p>
       </div>
