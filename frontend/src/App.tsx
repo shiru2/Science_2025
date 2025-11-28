@@ -49,9 +49,6 @@ function App() {
 
       if (response.data.success) {
         setFilteredAudio(response.data.data.filteredAudio)
-        if (currentStep === 'filter') {
-          setCurrentStep('complete')
-        }
       }
     } catch (error) {
       console.error('Error processing audio:', error)
@@ -289,20 +286,33 @@ function App() {
                 </div>
               </div>
               {filteredAudio && (
-                <div className="bg-white/10 backdrop-blur-lg rounded-3xl p-8 shadow-2xl">
-                  <h3 className="text-2xl font-bold mb-6 text-center">聞き比べてみよう</h3>
-                  <div className="flex gap-6 justify-center flex-wrap">
+                <div className="space-y-6 animate-fadeIn">
+                  <div className="bg-white/10 backdrop-blur-lg rounded-3xl p-8 shadow-2xl">
+                    <h3 className="text-2xl font-bold mb-6 text-center">聞き比べてみよう</h3>
+                    <div className="flex gap-6 justify-center flex-wrap">
+                      <button
+                        onClick={() => playAudio(audioData.originalAudio)}
+                        className="bg-blue-500 hover:bg-blue-600 px-8 py-4 rounded-xl text-lg font-bold transition-all transform hover:scale-105"
+                      >
+                        🎧 元の音声
+                      </button>
+                      <button
+                        onClick={() => playAudio(filteredAudio)}
+                        className="bg-purple-500 hover:bg-purple-600 px-8 py-4 rounded-xl text-lg font-bold transition-all transform hover:scale-105"
+                      >
+                        🔊 加工後の音声
+                      </button>
+                    </div>
+                  </div>
+                  <div className="bg-green-500/20 backdrop-blur-lg rounded-3xl p-8 shadow-2xl border-2 border-green-400/50">
+                    <p className="text-lg mb-6 text-center">
+                      音の変化に気づきましたか？違いがわかったら、次に進みましょう！
+                    </p>
                     <button
-                      onClick={() => playAudio(audioData.originalAudio)}
-                      className="bg-blue-500 hover:bg-blue-600 px-8 py-4 rounded-xl text-lg font-bold transition-all transform hover:scale-105"
+                      onClick={() => setCurrentStep('complete')}
+                      className="w-full bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 px-12 py-5 rounded-2xl text-2xl font-bold transition-all transform hover:scale-105"
                     >
-                      🎧 元の音声
-                    </button>
-                    <button
-                      onClick={() => playAudio(filteredAudio)}
-                      className="bg-purple-500 hover:bg-purple-600 px-8 py-4 rounded-xl text-lg font-bold transition-all transform hover:scale-105"
-                    >
-                      🔊 加工後の音声
+                      完了して結果を見る →
                     </button>
                   </div>
                 </div>
