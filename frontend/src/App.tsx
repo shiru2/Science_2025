@@ -298,6 +298,12 @@ function App() {
                   />
                   <div className="flex gap-3 justify-center flex-wrap">
                     <button
+                      onClick={() => setCurrentStep('visualize')}
+                      className="bg-gray-500 hover:bg-gray-600 px-6 py-3 rounded-xl text-base font-bold text-white transition-all transform hover:scale-105"
+                    >
+                      ← 前に戻る
+                    </button>
+                    <button
                       onClick={applyFilter}
                       disabled={isProcessing || (!lowCut && !highCut)}
                       className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 disabled:from-gray-400 disabled:to-gray-500 px-8 py-3 rounded-xl text-lg font-bold text-white transition-all transform hover:scale-105 disabled:scale-100 disabled:cursor-not-allowed"
