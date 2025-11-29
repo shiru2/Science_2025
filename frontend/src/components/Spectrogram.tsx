@@ -9,9 +9,10 @@ interface SpectrogramProps {
   lowCut?: number | null
   highCut?: number | null
   maxFrequency?: number
+  height?: string
 }
 
-const Spectrogram = ({ audioData, lowCut, highCut, maxFrequency }: SpectrogramProps) => {
+const Spectrogram = ({ audioData, lowCut, highCut, maxFrequency, height = '400px' }: SpectrogramProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
@@ -84,11 +85,11 @@ const Spectrogram = ({ audioData, lowCut, highCut, maxFrequency }: SpectrogramPr
   return (
     <div className="space-y-4">
       {/* スペクトログラムとカーテンのコンテナ */}
-      <div className="relative bg-black/50 rounded-lg p-4" style={{ height: '400px' }}>
+      <div className="relative bg-black/50 rounded-lg p-4" style={{ height }}>
         <div className="relative w-full h-full overflow-hidden rounded">
           <canvas
             ref={canvasRef}
-            className="w-full h-full object-contain"
+            className="w-full h-full object-cover"
             style={{ imageRendering: 'pixelated' }}
           />
 

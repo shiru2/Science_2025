@@ -295,12 +295,11 @@ function App() {
                   {/* スペクトログラム */}
                   <div>
                     <h3 className="text-lg font-bold text-gray-800 mb-2 text-center">📊 {text.spectrogram}</h3>
-                    <div style={{ height: '300px' }}>
-                      <Spectrogram
-                        audioData={audioData}
-                        maxFrequency={4000}
-                      />
-                    </div>
+                    <Spectrogram
+                      audioData={audioData}
+                      maxFrequency={4000}
+                      height="300px"
+                    />
                   </div>
                   {/* 波形表示 */}
                   <div>
@@ -352,14 +351,13 @@ function App() {
                   {/* スペクトログラム */}
                   <div>
                     <h3 className="text-lg font-bold text-gray-800 mb-2 text-center">📊 {text.spectrogram}</h3>
-                    <div style={{ height: '300px' }}>
-                      <Spectrogram
-                        audioData={audioData}
-                        lowCut={lowCut}
-                        highCut={highCut}
-                        maxFrequency={4000}
-                      />
-                    </div>
+                    <Spectrogram
+                      audioData={audioData}
+                      lowCut={lowCut}
+                      highCut={highCut}
+                      maxFrequency={4000}
+                      height="300px"
+                    />
                   </div>
                   {/* 波形表示 */}
                   <div>
