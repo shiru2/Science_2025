@@ -1,0 +1,6 @@
+# This file is used internally by FFMPEG.
+file 'file:/Users/hanya/Documents/plograming/science_child/media/videos/CameraAngleDynamic/1080p60/partial_movie_files/CameraAngleDynamic/3529212410_3840959510_3959374636.mp4'
+file 'file:/Users/hanya/Documents/plograming/science_child/media/videos/CameraAngleDynamic/1080p60/partial_movie_files/CameraAngleDynamic/3040924799_4160709244_2437748365.mp4'
+file 'file:/Users/hanya/Documents/plograming/science_child/media/videos/CameraAngleDynamic/1080p60/partial_movie_files/CameraAngleDynamic/3040924799_1221797154_974604926.mp4'
+file 'file:/Users/hanya/Documents/plograming/science_child/media/videos/CameraAngleDynamic/1080p60/partial_movie_files/CameraAngleDynamic/3040924799_645651180_2269715458.mp4'
+file 'file:/Users/hanya/Documents/plograming/science_child/media/videos/CameraAngleDynamic/1080p60/partial_movie_files/CameraAngleDynamic/3040924799_1839128356_1921544313.mp4'

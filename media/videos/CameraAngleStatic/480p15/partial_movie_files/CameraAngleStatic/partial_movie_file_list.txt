@@ -1,0 +1,10 @@
+# This file is used internally by FFMPEG.
+file 'file:/Users/hanya/Documents/plograming/science_child/media/videos/CameraAngleStatic/480p15/partial_movie_files/CameraAngleStatic/1185818338_880834688_223132457.mp4'
+file 'file:/Users/hanya/Documents/plograming/science_child/media/videos/CameraAngleStatic/480p15/partial_movie_files/CameraAngleStatic/624642324_3033363393_878769502.mp4'
+file 'file:/Users/hanya/Documents/plograming/science_child/media/videos/CameraAngleStatic/480p15/partial_movie_files/CameraAngleStatic/624642324_1549795794_1217215073.mp4'
+file 'file:/Users/hanya/Documents/plograming/science_child/media/videos/CameraAngleStatic/480p15/partial_movie_files/CameraAngleStatic/624642324_1839128356_3568168356.mp4'
+file 'file:/Users/hanya/Documents/plograming/science_child/media/videos/CameraAngleStatic/480p15/partial_movie_files/CameraAngleStatic/624642324_338615874_10333108.mp4'
+file 'file:/Users/hanya/Documents/plograming/science_child/media/videos/CameraAngleStatic/480p15/partial_movie_files/CameraAngleStatic/624642324_2838072795_1030750504.mp4'
+file 'file:/Users/hanya/Documents/plograming/science_child/media/videos/CameraAngleStatic/480p15/partial_movie_files/CameraAngleStatic/624642324_1371576049_1057668791.mp4'
+file 'file:/Users/hanya/Documents/plograming/science_child/media/videos/CameraAngleStatic/480p15/partial_movie_files/CameraAngleStatic/624642324_3172956307_3054525890.mp4'
+file 'file:/Users/hanya/Documents/plograming/science_child/media/videos/CameraAngleStatic/480p15/partial_movie_files/CameraAngleStatic/624642324_2408024828_1706381130.mp4'
